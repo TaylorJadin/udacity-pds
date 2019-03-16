@@ -55,7 +55,16 @@ SELECT col1 + col2 AS total, col3
 SELECT col1 + col2 total, col3
 
 -- aliasing table names can make selects easier and alias columns can make them more readable
-Select t1.column1 aliasname, t2.column2 aliasname2
+SELECT t1.column1 aliasname,
+         t2.column2 aliasname2
 FROM tablename AS t1
 JOIN tablename2 AS t2
+
+-- EXs
+SELECT t2.primary_poc primary_poc,
+         t1.occurred_at occurred_at,
+         t1.channel channel
+FROM web_events t1
+JOIN accounts t2
+    ON t1.account_id = t2.id
 

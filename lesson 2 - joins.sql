@@ -1,0 +1,36 @@
+-- INNER JOIN table name is before the period, column is after
+-- this will only pull stuff from the orders table
+SELECT orders.*
+FROM orders
+JOIN accounts
+ON orders.account_id = accounts.id;
+
+-- this will pull name from accounts and occurred_at from orders
+SELECT accounts.name, orders.occurred_at
+FROM orders
+JOIN accounts
+ON orders.account_id = accounts.id;
+
+-- this will pull all columns from the accounts and orders tables
+SELECT *
+FROM orders
+JOIN accounts
+ON orders.account_id = accounts.id;
+
+-- more join EXs
+SELECT orders.*, accounts.*
+FROM accounts
+JOIN orders
+ON accounts.id = orders.account_id;
+
+SELECT orders.standard_qty,
+         orders.gloss_qty,
+         orders.poster_qty,
+         accounts.website,
+         accounts.primary_poc
+FROM orders
+JOIN accounts
+    ON orders.account_id = accounts.id;
+
+-- PK primary key, unique column in every table
+-- FK foreign key, column in one table that is a primary key in a different table

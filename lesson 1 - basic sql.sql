@@ -116,7 +116,7 @@ WHERE channel IN ('organic', 'adwords')
         AND occurred_at BETWEEN '2016-01-01' AND '2017-01-01;'
 ORDER BY  occurred_at DESC
 
--- OR is like AND
+-- OR is like AND but expands scope instead of narrows
 SELECT id
 FROM orders
 WHERE gloss_qty > 4000

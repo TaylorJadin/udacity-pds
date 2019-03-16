@@ -34,3 +34,18 @@ JOIN accounts
 
 -- PK primary key, unique column in every table
 -- FK foreign key, column in one table that is a primary key in a different table
+
+-- join more than two tables
+SELECT *
+FROM web_events
+JOIN accounts
+ON web_events.account_id = accounts.id
+JOIN orders
+ON accounts.id = orders.account_id
+
+SELECT web_events.channel, accounts.name, orders.total
+FROM web_events
+JOIN accounts
+ON web_events.account_id = accounts.id
+JOIN orders
+ON accounts.id = orders.account_id

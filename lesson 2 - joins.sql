@@ -58,3 +58,5 @@ SELECT col1 + col2 total, col3
 Select t1.column1 aliasname, t2.column2 aliasname2
 FROM tablename AS t1
 JOIN tablename2 AS t2
+
+-- test

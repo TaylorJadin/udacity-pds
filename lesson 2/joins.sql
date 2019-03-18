@@ -96,4 +96,38 @@ ON o.account_id = a.id;
 
 -- outer join (returns inner join results and unmatched rows form both tables) may also be written as full outer join
 
-This is  a test
+-- last EXs
+
+SELECT r.name RegionName,
+         s.name RepName,
+         a.name AccountName
+FROM region r
+JOIN sales_reps s
+    ON r.id = s.region_id
+JOIN accounts a
+    ON s.id = a.sales_rep_id
+WHERE r.name like 'Midwest';
+
+SELECT r.name RegionName,
+         s.name RepName,
+         a.name AccountName
+FROM region r
+JOIN sales_reps s
+    ON r.id = s.region_id
+JOIN accounts a
+    ON s.id = a.sales_rep_id
+WHERE r.name LIKE 'Midwest'
+AND s.name LIKE 'S%'
+ORDER BY  a.name;
+
+SELECT r.name RegionName,
+         s.name RepName,
+         a.name AccountName
+FROM region r
+JOIN sales_reps s
+    ON r.id = s.region_id
+JOIN accounts a
+    ON s.id = a.sales_rep_id
+WHERE r.name LIKE 'Midwest'
+AND s.name LIKE '% K%'
+ORDER BY  a.name;

@@ -87,5 +87,12 @@ ON o.account_id = a.id;
 
 -- ON statements should always occur with the foreign key being equal to the primary key, though there edge cases where this isn't true
 
--- Inner Join - only return rows that rows that appear in both tables
+-- Inner Join - only return rows that rows that appear in both tables, this is the default
+-- from statement is the left table, join is right table
+
+-- left joins are pretty much the standard, you don't see right joins very often
+
+-- left outer join and right outer join are the same as left join and right join respectively
+
+-- outer join (returns inner join results and unmatched rows form both tables) may also be written as full outer join
 

@@ -87,3 +87,5 @@ ON o.account_id = a.id;
 
 -- ON statements should always occur with the foreign key being equal to the primary key, though there edge cases where this isn't true
 
+-- Inner Join - only return rows that rows that appear in both tables
+

@@ -172,3 +172,21 @@ JOIN orders o
 WHERE o.standard_qty > 100
         AND o.poster_qty > 50
 ORDER BY unit_price DESC;
+
+SELECT DISTINCT a.name, w.channel
+FROM accounts a
+JOIN web_events w
+ON a.id = w.account_id
+WHERE a.id = '1001';
+
+SELECT o.occurred_at,
+         a.name "account name",
+         o.total "order total",
+         o.total_amt_usd "order total_amt_usd"
+FROM orders o
+JOIN accounts a
+    ON o.account_id = a.id
+WHERE o.occurred_at
+    BETWEEN '2015-01-01'
+        AND '2016-01-01' 
+ORDER BY o.occurred_at DESC;

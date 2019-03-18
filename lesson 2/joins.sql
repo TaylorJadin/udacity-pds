@@ -96,3 +96,4 @@ ON o.account_id = a.id;
 
 -- outer join (returns inner join results and unmatched rows form both tables) may also be written as full outer join
 
+This is  a test

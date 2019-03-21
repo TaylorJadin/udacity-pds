@@ -105,5 +105,36 @@ SELECT a.name,
 FROM accounts a
 JOIN orders o
     ON a.id = o.account_id
-GROUP BY  a.name
+GROUP BY a.name
+ORDER BY a.name;
+
+SELECT w.occurred_at,
+         w.channel,
+         a.name
+FROM web_events w
+JOIN accounts a
+    ON w.account_id = a.id
+ORDER BY  w.occurred_at DESC
+LIMIT 1;
+
+SELECT channel,
+         count(*)
+FROM web_events
+GROUP BY channel;
+
+SELECT a.primary_poc,
+         w.occurred_at
+FROM accounts a
+JOIN web_events w
+    ON a.id = w.account_id
+ORDER BY  w.occurred_at
+LIMIT 1;
+
+SELECT a.name,
+         min(o.total_amt_usd) total_usd
+FROM accounts a
+JOIN orders o
+    ON a.id = o.account_id
+GROUP BY a.name
+ORDER BY a.name;
 

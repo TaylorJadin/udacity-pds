@@ -68,3 +68,12 @@ SELECT avg(standard_qty) avg_standard_qty,
          avg(gloss_amt_usd) avg_gloss_amt,
          avg(poster_amt_usd) avg_poster_amt
 FROM orders
+
+-- advanced example, find the median
+SELECT *
+FROM (SELECT total_amt_usd
+      FROM orders
+      ORDER BY total_amt_usd
+      LIMIT 3457) AS Table1
+ORDER BY total_amt_usd DESC
+LIMIT 2;

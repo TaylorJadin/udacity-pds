@@ -89,3 +89,21 @@ GROUP BY account_id
 ORDER BY account_id
 
 -- note: SQL evaluates aggreations before LIMIT so the totals will be correct
+
+-- EXs
+
+SELECT a.name account_name,
+         o.occurred_at order_date
+FROM accounts a
+JOIN orders o
+    ON a.id = o.account_id
+ORDER BY order_date
+LIMIT 1;
+
+SELECT a.name,
+         sum(o.total_amt_usd) total_sales
+FROM accounts a
+JOIN orders o
+    ON a.id = o.account_id
+GROUP BY  a.name
+

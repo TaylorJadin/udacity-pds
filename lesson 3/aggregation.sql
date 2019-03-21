@@ -77,3 +77,15 @@ FROM (SELECT total_amt_usd
       LIMIT 3457) AS Table1
 ORDER BY total_amt_usd DESC
 LIMIT 2;
+
+-- GROUP BY, aggregate data within subsets of the data
+
+SELECT account_id
+       SUM(standard_qty) AS standard_sum,
+       SUM(gloss_qty) AS gloss_sum
+       SUM(poster_qty) AS poster_sum
+    FROM orders
+GROUP BY account_id
+ORDER BY account_id
+
+-- note: SQL evaluates aggreations before LIMIT so the totals will be correct

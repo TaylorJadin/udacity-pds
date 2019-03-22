@@ -90,6 +90,10 @@ ORDER BY account_id
 
 -- note: SQL evaluates aggreations before LIMIT so the totals will be correct
 
+-- any column not within an aggregation must show up in group by
+
+-- you can substitute numbers for column names in group by and order by, but usually you only do this with statements that are excessively long
+
 -- EXs
 
 SELECT a.name account_name,
@@ -131,10 +135,20 @@ ORDER BY  w.occurred_at
 LIMIT 1;
 
 SELECT a.name,
-         min(o.total_amt_usd) total_usd
+         min(o.total_amt_usd) smallest_order
 FROM accounts a
 JOIN orders o
     ON a.id = o.account_id
 GROUP BY a.name
-ORDER BY a.name;
+ORDER BY smallest_order;
+
+SELECT r.name region,
+         count(r.*) num_reps
+FROM region r
+JOIN sales_reps s
+    ON r.id = s.region_id
+GROUP BY  r.name
+ORDER BY  num_reps;
+
+-- multiple GROUP BY Exs
 

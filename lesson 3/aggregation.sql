@@ -152,3 +152,46 @@ ORDER BY  num_reps;
 
 -- multiple GROUP BY Exs
 
+SELECT a.name,
+         avg(o.standard_qty) avg_standard,
+         avg(o.gloss_qty) avg_gloss,
+         avg(o.poster_qty) avg_poster
+FROM accounts a
+JOIN orders o
+    ON a.id = o.account_id
+GROUP BY  a.name
+ORDER BY  a.name;
+
+SELECT a.name,
+         avg(o.standard_amt_usd) avg_standard_usd,
+         avg(o.gloss_amt_usd) avg_gloss_usd,
+         avg(o.poster_amt_usd) avg_poster_usd
+FROM accounts a
+JOIN orders o
+    ON a.id = o.account_id
+GROUP BY  a.name
+ORDER BY  a.name;
+
+SELECT s.name,
+         w.channel,
+         count(w.*) frequency
+FROM sales_reps s
+JOIN accounts a
+    ON s.id = a.sales_rep_id
+JOIN web_events w
+    ON a.id = w.account_id
+GROUP BY  s.name, w.channel
+ORDER BY  frequency DESC;
+
+SELECT r.name region,
+         w.channel,
+         count(w.*) frequency
+FROM region r
+JOIN sales_reps s
+    ON r.id = s.region_id
+JOIN accounts a
+    ON s.id = a.sales_rep_id
+JOIN web_events w
+    ON a.id = w.account_id
+GROUP BY  region, w.channel
+ORDER BY  frequency DESC;

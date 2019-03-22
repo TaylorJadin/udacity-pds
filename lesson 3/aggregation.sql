@@ -68,3 +68,4 @@ SELECT avg(standard_qty) avg_standard_qty,
          avg(gloss_amt_usd) avg_gloss_amt,
          avg(poster_amt_usd) avg_poster_amt
 FROM orders
+

@@ -196,3 +196,108 @@ SELECT DISTINCT id,
 	name
 FROM sales_reps;
 
+-- HAVING, like WHERE but for something that is created by an aggregate
+SELECT account_id,
+	sum(total_amt_usd) sum_total_amt_usd
+FROM orders
+GROUP BY account_id
+HAVING sum(total_amt_usd) >= 250000;
+
+-- EXs
+SELECT s.name rep,
+	count(*) num_accounts
+FROM sales_reps s
+JOIN accounts a ON s.id = a.sales_rep_id
+GROUP BY s.name
+HAVING count(a.*) > 5
+ORDER BY num_accounts;
+
+SELECT a.id,
+	a.name,
+	count(*) num_orders
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+GROUP BY a.id,
+	a.name
+HAVING count(o.*) > 20
+ORDER BY num_orders;
+
+SELECT a.id,
+	a.name,
+	count(*) orders
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+GROUP BY a.id,
+	a.name
+ORDER BY orders DESC limit 1;
+
+SELECT a.id,
+	a.name,
+	sum(o.total_amt_usd) total_spent
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+GROUP BY a.id,
+	a.name
+HAVING sum(o.total_amt_usd) > 30000
+ORDER BY total_spent;
+
+SELECT a.id,
+	a.name,
+	sum(o.total_amt_usd) total_spent
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+GROUP BY a.id,
+	a.name
+HAVING sum(o.total_amt_usd) < 1000
+ORDER BY total_spent;
+
+SELECT a.id,
+	a.name,
+	sum(o.total_amt_usd) total_spent
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+GROUP BY a.id,
+	a.name
+ORDER BY total_spent DESC limit 1;
+
+SELECT a.id,
+	a.name,
+	sum(o.total_amt_usd) total_spent
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+GROUP BY a.id,
+	a.name
+ORDER BY total_spent limit 1;
+
+SELECT a.id,
+	a.name,
+	w.channel,
+	COUNT(*) use_of_channel
+FROM accounts a
+JOIN web_events w ON a.id = w.account_id
+GROUP BY a.id,
+	a.name,
+	w.channel
+HAVING COUNT(*) > 6
+	AND w.channel = 'facebook'
+ORDER BY use_of_channel;
+
+SELECT a.id,
+	a.name,
+	w.channel,
+	COUNT(*) use_of_channel
+FROM accounts a
+JOIN web_events w ON a.id = w.account_id
+GROUP BY a.id,
+	a.name,
+	w.channel
+HAVING w.channel = 'facebook'
+ORDER BY use_of_channel DESC limit 1;
+
+SELECT a.id, a.name, w.channel, COUNT(*) use_of_channel
+FROM accounts a
+JOIN web_events w
+ON a.id = w.account_id
+GROUP BY a.id, a.name, w.channel
+ORDER BY use_of_channel DESC
+LIMIT 10;

@@ -1,5 +1,5 @@
 -- nulls
-WHERE primary_poc IS nulls
+WHERE primary_poc IS null
 
 -- COUNT
 SELECT COUNT(*)

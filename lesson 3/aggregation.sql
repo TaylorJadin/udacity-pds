@@ -294,10 +294,43 @@ GROUP BY a.id,
 HAVING w.channel = 'facebook'
 ORDER BY use_of_channel DESC limit 1;
 
-SELECT a.id, a.name, w.channel, COUNT(*) use_of_channel
+SELECT a.id,
+	a.name,
+	w.channel,
+	COUNT(*) use_of_channel
 FROM accounts a
-JOIN web_events w
-ON a.id = w.account_id
-GROUP BY a.id, a.name, w.channel
-ORDER BY use_of_channel DESC
-LIMIT 10;
+JOIN web_events w ON a.id = w.account_id
+GROUP BY a.id,
+	a.name,
+	w.channel
+ORDER BY use_of_channel DESC LIMIT 10;
+
+-- DATE_TRUNC, make dates more useful for grouping and stuff
+SELECT DATE_TRUNC('day', occurred_at) AS day,
+	sum(standard_qty) AS standard_qty_sum
+FROM orders
+GROUP BY DATE_TRUNC('day', occurred_at)
+ORDER BY DATE_TRUNC('day', occurred_at)
+
+-- DATE_PART, pull a specific potion of the date
+-- DOW pulls day of the week
+SELECT date_part('dow', occurred_at) AS day_of_week,
+	sum(total) AS total_qty
+FROM orders
+GROUP BY 1
+ORDER BY 2 DESC;
+
+-- EXs
+SELECT DATE_TRUNC('year', occurred_at) ord_year,
+	sum(total_amt_usd) total_spent
+FROM orders
+GROUP BY 1
+ORDER BY 2 DESC;
+
+SELECT date_part('month', occurred_at) AS month,
+	sum(total_amt_usd) AS total_spent
+FROM orders
+WHERE occurred_at BETWEEN '2014-01-01' AND '2017-01-01'
+GROUP BY 1
+ORDER BY 2 DESC;
+

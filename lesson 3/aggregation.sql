@@ -1,5 +1,5 @@
 -- nulls
-WHERE primary_poc IS null
+WHERE primary_poc IS NULL
 
 -- COUNT
 SELECT COUNT(*)
@@ -330,7 +330,8 @@ ORDER BY 2 DESC;
 SELECT date_part('month', occurred_at) AS month,
 	sum(total_amt_usd) AS total_spent
 FROM orders
-WHERE occurred_at BETWEEN '2014-01-01' AND '2017-01-01'
+WHERE occurred_at BETWEEN '2014-01-01'
+		AND '2017-01-01'
 GROUP BY 1
 ORDER BY 2 DESC;
 
@@ -343,12 +344,13 @@ ORDER BY 2 DESC;
 SELECT date_part('month', occurred_at) AS month,
 	count(*) AS total_orders
 FROM orders
-WHERE occurred_at BETWEEN '2014-01-01' AND '2017-01-01'
+WHERE occurred_at BETWEEN '2014-01-01'
+		AND '2017-01-01'
 GROUP BY 1
 ORDER BY 2 DESC;
 
-SELECT DATE_TRUNC('month', occurred_at) as month,
-	   sum(gloss_amt_usd) as gloss_total_usd
+SELECT DATE_TRUNC('month', occurred_at) AS month,
+	sum(gloss_amt_usd) AS gloss_total_usd
 FROM orders
 JOIN accounts ON orders.account_id = accounts.id
 WHERE accounts.name = 'Walmart'

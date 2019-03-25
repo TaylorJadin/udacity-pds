@@ -334,3 +334,23 @@ WHERE occurred_at BETWEEN '2014-01-01' AND '2017-01-01'
 GROUP BY 1
 ORDER BY 2 DESC;
 
+SELECT date_part('year', occurred_at) AS year,
+	count(*) AS total_orders
+FROM orders
+GROUP BY 1
+ORDER BY 2 DESC;
+
+SELECT date_part('month', occurred_at) AS month,
+	count(*) AS total_orders
+FROM orders
+WHERE occurred_at BETWEEN '2014-01-01' AND '2017-01-01'
+GROUP BY 1
+ORDER BY 2 DESC;
+
+SELECT DATE_TRUNC('month', occurred_at) as month,
+	   sum(gloss_amt_usd) as gloss_total_usd
+FROM orders
+JOIN accounts ON orders.account_id = accounts.id
+WHERE accounts.name = 'Walmart'
+GROUP BY 1
+ORDER BY 2 DESC;

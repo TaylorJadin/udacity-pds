@@ -396,3 +396,96 @@ SELECT account_id,
 		ELSE standard_amt_usd / standard_qty
 		END AS unit_price
 FROM orders LIMIT 10;
+
+-- CASE and aggregations
+SELECT CASE 
+		WHEN total > 500
+			THEN 'Over 500'
+		ELSE '500 or under'
+		END AS total_group,
+	count(*) AS order_count
+FROM orders
+GROUP BY 1
+
+-- EXs
+SELECT a.id,
+	o.total_amt_usd,
+	CASE 
+		WHEN o.total_amt_usd > 3000
+			THEN 'Over $3000'
+		ELSE 'Less than $3000'
+		END AS large_or_small
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+ORDER BY 1;
+
+SELECT a.id,
+	o.total,
+	CASE 
+		WHEN o.total >= 2000
+			THEN 'At Least 2000'
+		WHEN o.total <= 2000
+			AND o.total >= 1000 
+			THEN 'Between 1000 and 2000'
+		ELSE 'Less than 1000'
+		END AS large_or_small
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+ORDER BY 1;
+
+SELECT a.name account_name, sum(o.total_amt_usd) total_sales,
+CASE 
+	WHEN sum(o.total_amt_usd) > 200000 THEN 'greater than 200,000'
+	WHEN sum(o.total_amt_usd) <= 200000 AND sum(o.total_amt_usd) >= 100000 THEN 'between 200,000 and 100,000'
+	ELSE 'under 100,000'
+	END AS level
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+SELECT a.name account_name,
+	sum(o.total_amt_usd) total_sales,
+	CASE 
+		WHEN sum(o.total_amt_usd) > 200000
+			THEN 'greater than 200,000'
+		WHEN sum(o.total_amt_usd) <= 200000
+			AND sum(o.total_amt_usd) >= 100000
+			THEN 'between 200,000 and 100,000'
+		ELSE 'under 100,000'
+		END AS LEVEL
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+WHERE occurred_at > '2015-12-31'
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
+SELECT s.name rep_name,
+	count(o.*) total_orders_num,
+	CASE 
+		WHEN count(*) > 200
+			THEN 'top'
+		ELSE 'not'
+		END AS top_or_not
+FROM sales_reps s
+JOIN accounts a ON s.id = a.sales_rep_id
+JOIN orders o ON a.id = o.account_id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
+
+SELECT s.name rep_name,
+	count(o.*) total_orders_num,
+	sum(o.total_amt_usd) total_orders_usd,
+	CASE
+		WHEN count(o.*) > 200 OR sum(o.total_amt_usd) > 750000 THEN 'top'
+		WHEN count(o.*) > 150 OR sum(o.total_amt_usd) > 500000 THEN 'middle'
+		ELSE 'low'
+		END AS top_middle_low
+FROM sales_reps s
+JOIN accounts a ON s.id = a.sales_rep_id
+JOIN orders o ON a.id = o.account_id
+GROUP BY 1
+ORDER BY 2 DESC;

@@ -358,23 +358,41 @@ GROUP BY 1
 ORDER BY 2 DESC;
 
 -- CASE = if, then 
-SELECT id, account_id, occurred_at, channel,
-CASE WHEN channel = 'facebook' OR channel = 'direct' THEN 'yes' ELSE 'no' END AS is_facebook
+SELECT id,
+	account_id,
+	occurred_at,
+	channel,
+	CASE 
+		WHEN channel = 'facebook'
+			OR channel = 'direct'
+			THEN 'yes'
+		ELSE 'no'
+		END AS is_facebook
 FROM web_events
 ORDER BY occurred_at
 
 SELECT account_id,
 	occurred_at,
 	total,
-	CASE WHEN total > 500 THEN 'Over 500'
-		 WHEN total > 300 AND total <= 500 THEN '301 - 500'
-		 WHEN total > 100 AND total <= 300 THEN '101 - 300'
-		 ELSE '100 or under' END AS total_group
+	CASE 
+		WHEN total > 500
+			THEN 'Over 500'
+		WHEN total > 300
+			AND total <= 500
+			THEN '301 - 500'
+		WHEN total > 100
+			AND total <= 300
+			THEN '101 - 300'
+		ELSE '100 or under'
+		END AS total_group
 FROM orders
 
 -- get around a divide by zero
-SELECT account_id, CASE WHEN standard_qty = 0 OR standard_qty IS NULL THEN 0
-                        ELSE standard_amt_usd/standard_qty END AS unit_price
-FROM orders
-LIMIT 10;
-
+SELECT account_id,
+	CASE 
+		WHEN standard_qty = 0
+			OR standard_qty IS NULL
+			THEN 0
+		ELSE standard_amt_usd / standard_qty
+		END AS unit_price
+FROM orders LIMIT 10;

@@ -66,3 +66,24 @@ JOIN (
 	GROUP BY 1,
 		2
 	) t3 ON t3.region = t2.region AND t3.total = t2.total;
+
+SELECT r.name,
+	count(*)
+FROM region r
+JOIN sales_reps s ON r.id = s.region_id
+JOIN accounts a ON s.id = a.sales_rep_id
+JOIN orders o ON a.id = o.account_id
+GROUP BY 1
+HAVING sum(o.total_amt_usd) = (
+		SELECT MAX(total_sales_usd)
+		FROM (
+			SELECT r.name region,
+				sum(o.total_amt_usd) total_sales_usd
+			FROM region r
+			JOIN sales_reps s ON r.id = s.region_id
+			JOIN accounts a ON s.id = a.sales_rep_id
+			JOIN orders o ON a.id = o.account_id
+			GROUP BY 1
+			) sub
+		);
+

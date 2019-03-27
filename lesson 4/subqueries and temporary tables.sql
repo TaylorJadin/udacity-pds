@@ -87,3 +87,12 @@ HAVING sum(o.total_amt_usd) = (
 			) sub
 		);
 
+SELECT max(lifetime_standard_qty)
+FROM (
+	SELECT a.name account,
+		sum(o.standard_qty) lifetime_standard_qty
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY a.name
+	)
+

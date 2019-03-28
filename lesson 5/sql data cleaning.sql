@@ -169,3 +169,24 @@ CAST(date_column AS DATE)
 date_column::date
 
 -- TRIM, remove from beginning and end of string
+
+-- EXs
+
+-- 4
+SELECT DATE orig_date,
+	(SUBSTR(DATE, 7, 4) || '-' || LEFT(DATE, 2) || '-' || SUBSTR(DATE, 4, 2))::date new_date
+FROM sf_crime_data;
+
+-- COALESCE, fill null values with something else
+ SELECT *
+FROM accounts a
+LEFT JOIN orders o
+ON a.id = o.account_id
+WHERE o.total IS NULL; 
+
+-- filled
+SELECT COALESCE(a.id, a.id) filled_id, a.name, a.website, a.lat, a.long, a.primary_poc, a.sales_rep_id, o.*
+FROM accounts a
+LEFT JOIN orders o
+ON a.id = o.account_id
+WHERE o.total IS NULL;

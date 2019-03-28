@@ -107,3 +107,26 @@ FROM (
 				) inner_tab
 			)
 	) counter_tab;
+
+SELECT a.name,
+	w.channel,
+	count(*)
+FROM accounts a
+JOIN web_events w ON a.id = w.account_id
+	AND a.id = (
+		SELECT id
+		FROM (
+			SELECT a.id,
+				a.name,
+				sum(o.total_amt_usd) tot_spent
+			FROM accounts a
+			JOIN orders o ON a.id = o.account_id
+			GROUP BY a.id,
+				a.name
+			ORDER BY sum(o.total_amt_usd) DESC limit 1
+			)
+		inner_table
+		)
+GROUP BY 1,
+	2
+ORDER BY 3 DESC;

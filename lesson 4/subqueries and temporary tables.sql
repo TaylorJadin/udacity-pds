@@ -124,9 +124,28 @@ JOIN web_events w ON a.id = w.account_id
 			GROUP BY a.id,
 				a.name
 			ORDER BY sum(o.total_amt_usd) DESC limit 1
-			)
-		inner_table
+			) inner_table
 		)
 GROUP BY 1,
 	2
 ORDER BY 3 DESC;
+
+SELECT avg(sum) lifetime_avg_spent
+FROM (
+	SELECT a.id,
+		a.name,
+		sum(o.total_amt_usd)
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY 1,
+		2
+	ORDER BY 3 DESC limit 10
+	) sub
+
+select avg(avg)
+from (
+	select o.account_id, avg(o.total_amt_usd)
+	from orders o
+	group by 1
+	having avg(o.total_amt_usd) > (select avg(o.total_amt_usd) avg_all from orders o)
+) sub

@@ -142,10 +142,88 @@ FROM (
 	ORDER BY 3 DESC limit 10
 	) sub
 
-select avg(avg)
-from (
-	select o.account_id, avg(o.total_amt_usd)
-	from orders o
+SELECT avg(avg)
+FROM (
+	SELECT o.account_id,
+		avg(o.total_amt_usd)
+	FROM orders o
+	GROUP BY 1
+	HAVING avg(o.total_amt_usd) > (
+			SELECT avg(o.total_amt_usd) avg_all
+			FROM orders o
+			)
+	) sub
+
+-- WITH, or common table expressions, or CTE
+-- these serve the same purpose as subqueries, but they are more common in practice as they tend to be cleaner for future reading, and often faster
+-- WITH needs to be at the beginning and needs an alias
+-- subquery
+SELECT channel,
+	AVG(events) AS average_events
+FROM (
+	SELECT DATE_TRUNC('day', occurred_at) AS day,
+		channel,
+		COUNT(*) AS events
+	FROM web_events
+	GROUP BY 1,
+		2
+	) sub
+GROUP BY channel
+ORDER BY 2 DESC;
+
+-- instead as a CTE --
+WITH events
+AS (
+	SELECT DATE_TRUNC('day', occurred_at) AS day,
+		channel,
+		COUNT(*) AS events
+	FROM web_events
+	GROUP BY 1,
+		2
+	)
+SELECT channel,
+	AVG(events) AS average_events
+FROM events
+GROUP BY channel
+ORDER BY 2 DESC;
+
+-- multiple WITH
+WITH table1
+AS (
+	SELECT *
+	FROM web_events
+	),
+table2
+AS (
+	SELECT *
+	FROM accounts
+	)
+SELECT *
+FROM table1
+JOIN table2 ON table1.account_id = table2.id;
+
+-- EXs
+-- 1
+WITH t1 AS (
+select s.name rep, r.name region, sum(o.total_amt_usd) total_sales
+from region r
+join sales_reps s on r.id = s.region_id
+join accounts a on s.id = a.sales_rep_id
+join orders o on a.id = o.account_id
+group by 1,2
+ORDER by 3 desc
+),
+
+t2 as (
+	select region, max(total_sales) total_sales
+	from t1
 	group by 1
-	having avg(o.total_amt_usd) > (select avg(o.total_amt_usd) avg_all from orders o)
-) sub
+)
+
+SELECT t1.rep, t1.region, t1.total_sales
+from t1
+join t2 on t1.total_sales = t2.total_sales
+--
+
+-- 2
+

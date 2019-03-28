@@ -1,3 +1,6 @@
+-- window functions perform a calculation across a set of rows that are somehow related to the current row
+-- kind of like an aggregate function but the rows retain their separate identities
+
 -- running total using a window function
 SELECT standard_qty,
 	SUM(standard_qty) OVER (
@@ -13,3 +16,4 @@ SELECT standard_qty,
 		ORDER BY occurred_at
 		) AS running_total
 FROM orders
+

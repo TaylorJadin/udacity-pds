@@ -204,26 +204,133 @@ JOIN table2 ON table1.account_id = table2.id;
 
 -- EXs
 -- 1
-WITH t1 AS (
-select s.name rep, r.name region, sum(o.total_amt_usd) total_sales
-from region r
-join sales_reps s on r.id = s.region_id
-join accounts a on s.id = a.sales_rep_id
-join orders o on a.id = o.account_id
-group by 1,2
-ORDER by 3 desc
-),
-
-t2 as (
-	select region, max(total_sales) total_sales
-	from t1
-	group by 1
-)
-
-SELECT t1.rep, t1.region, t1.total_sales
-from t1
-join t2 on t1.total_sales = t2.total_sales
---
-
+WITH t1
+AS (
+	SELECT s.name rep,
+		r.name region,
+		sum(o.total_amt_usd) total_sales
+	FROM region r
+	JOIN sales_reps s ON r.id = s.region_id
+	JOIN accounts a ON s.id = a.sales_rep_id
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY 1,
+		2
+	ORDER BY 3 DESC
+	),
+t2
+AS (
+	SELECT region,
+		max(total_sales) total_sales
+	FROM t1
+	GROUP BY 1
+	)
+SELECT t1.rep,
+	t1.region,
+	t1.total_sales
+FROM t1
+JOIN t2 ON t1.total_sales = t2.total_sales
 -- 2
+WITH t1 AS (
+		SELECT r.name region,
+			sum(o.total_amt_usd) total_sales
+		FROM region r
+		JOIN sales_reps s ON r.id = s.region_id
+		JOIN accounts a ON s.id = a.sales_rep_id
+		JOIN orders o ON a.id = o.account_id
+		GROUP BY 1
+		),
+	t2 AS (
+		SELECT max(total_sales)
+		FROM t1
+		)
 
+SELECT r.name,
+	count(o.*)
+FROM region r
+JOIN sales_reps s ON r.id = s.region_id
+JOIN accounts a ON s.id = a.sales_rep_id
+JOIN orders o ON a.id = o.account_id
+GROUP BY r.name
+HAVING sum(o.total_amt_usd) = (
+		SELECT *
+		FROM t2
+		);
+
+-- 3
+WITH t1
+AS (
+	SELECT a.name account,
+		sum(o.standard_qty) lifetime_standard_qty
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY 1
+	ORDER BY 2 DESC limit 1
+	),
+t2
+AS (
+	SELECT a.name account,
+		sum(o.total) lifetime_total
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY 1
+	HAVING sum(o.total) > (
+			SELECT t1.lifetime_standard_qty
+			FROM t1
+			)
+	)
+SELECT count(t2.*)
+FROM t2;
+
+-- 4
+WITH t1
+AS (
+	SELECT a.name account,
+		sum(o.total_amt_usd)
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY 1
+	ORDER BY 2 DESC limit 1
+	)
+SELECT t1.account,
+	w.channel,
+	count(*)
+FROM t1
+JOIN accounts a ON a.name = t1.account
+JOIN web_events w ON a.id = w.account_id
+GROUP BY 1, 2
+ORDER BY 3 DESC;
+
+-- 5
+WITH t1
+AS (
+	SELECT a.id,
+		sum(o.total_amt_usd) total_spent
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY 1
+	ORDER BY 2 DESC limit 10
+	)
+SELECT avg(total_spent)
+FROM t1
+
+-- 6
+WITH t1
+AS (
+	SELECT avg(o.total_amt_usd) avg_spent
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	),
+t2
+AS (
+	SELECT a.id,
+		sum(o.total_amt_usd) total_spent
+	FROM accounts a
+	JOIN orders o ON a.id = o.account_id
+	GROUP BY 1
+	HAVING sum(o.total_amt_usd) > (
+			SELECT *
+			FROM t1
+			)
+	)
+SELECT avg(total_spent)
+FROM t2

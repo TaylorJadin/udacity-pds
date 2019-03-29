@@ -129,8 +129,68 @@ SELECT id,
 FROM orders WINDOW main_window AS (
 		PARTITION BY account_id ORDER BY DATE_TRUNC('year', occurred_at)
 		)
-
-
 -- LAG, returns the value from a previous row to the current row in a table
 -- LEAD does the opposite
 -- you can use these functions to make calculations that compare one row to another, like the days between one order and the next
+
+-- EXs
+SELECT account_id,
+	total_sum,
+	LAG(total_sum) OVER (
+		ORDER BY total_sum
+		) AS lag,
+	LEAD(total_sum) OVER (
+		ORDER BY total_sum
+		) AS lead,
+	total_sum - LAG(total_sum) OVER (
+		ORDER BY total_sum
+		) AS lag_difference,
+	LEAD(total_sum) OVER (
+		ORDER BY total_sum
+		) - total_sum AS lead_difference
+FROM (
+	SELECT account_id,
+		SUM(total_amt_usd) AS total_sum
+	FROM orders
+	GROUP BY 1
+	) sub
+
+
+-- NTILE, see percentile or subdivision that a given row falls into
+-- number specified in the function is the number of parts you will divide the window
+SELECT id,
+	account_id,
+	occurred_at,
+	standard_qty,
+	NTILE(4) OVER (
+		ORDER BY standard_qty
+		) AS quartile,
+	NTILE(5) OVER (
+		ORDER BY standard_qty
+		) AS quintile,
+	NTILE(100) OVER (
+		ORDER BY standard_qty
+		) AS percentile,
+FROM orders
+ORDER BY standard_qty DESC
+
+-- EXs
+
+SELECT id,
+	account_id,
+	occurred_at,
+	standard_qty,
+	gloss_qty,
+	total_amt_usd,
+	NTILE(4) OVER (
+		ORDER BY standard_qty
+		) AS standard_quartile,
+	NTILE(2) OVER (
+		ORDER BY gloss_qty
+		) AS gloss_half,
+	NTILE(100) OVER (
+		ORDER BY total_amt_usd
+		) AS total_percentile
+FROM orders
+ORDER BY account_id DESC
+

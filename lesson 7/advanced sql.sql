@@ -42,3 +42,50 @@ SELECT a.name,
 FROM accounts a
 LEFT JOIN sales_reps s ON a.sales_rep_id = s.id
 	AND a.primary_poc < s.name
+
+-- Self JOINS
+-- common use case: where two events occurred, one after another
+SELECT w1.id AS w1_id,
+	w1.account_id AS w1_account_id,
+	w1.occurred_at AS w1_occurred_at,
+	w1.channel AS w1_channel,
+	w2.id AS w2_id,
+	w2.account_id AS w2_account_id,
+	w2.occurred_at AS w2_occurred_at,
+	w2.channel AS w2_channel
+FROM web_events w1
+LEFT JOIN web_events w2 ON w1.account_id = w2.account_id
+	AND w2.occurred_at > w1.occurred_at
+	AND w2.occurred_at <= w1.occurred_at + INTERVAL '1 day'
+ORDER BY w1.account_id,
+	w1.occurred_at
+
+-- more info on INTERVAL: https://www.postgresql.org/docs/8.2/functions-datetime.html
+-- UNION, stack two datasets on top of one another, instead of side by side (like in a JOIN)
+-- UNIONS need to have the same amount of columns and the data types must match in same order, column names don't have to be the same
+-- UNION skips rows that are the same, whereas UNION ALL doesn't skip, so UNION ALL is used more often
+-- EXs
+-- 1
+SELECT *
+FROM accounts
+WHERE name = 'Walmart'
+
+UNION ALL
+
+SELECT *
+FROM accounts
+WHERE name = 'Disney'
+-- 2
+WITH double_accounts AS (
+		SELECT *
+		FROM accounts
+		
+		UNION ALL
+		
+		SELECT *
+		FROM accounts
+		)
+
+SELECT count(*)
+FROM double_accounts
+WHERE name = 'Walmart'

@@ -17,4 +17,3 @@ SELECT category_name,
 FROM t1
 GROUP BY 1
 ORDER BY 2 DESC;
-

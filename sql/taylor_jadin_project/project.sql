@@ -1,3 +1,4 @@
+/* Query 1 - query used for first insight */
 WITH t1
 AS (
 	SELECT f.title film_title,
@@ -9,10 +10,10 @@ AS (
 	JOIN inventory i ON f.film_id = i.film_id
 	JOIN rental r ON i.inventory_id = r.inventory_id
 	WHERE c.name IN ('Animation', 'Children', 'Classics', 'Comedy', 'Family', 'Music')
-	GROUP BY 1,	2
+	GROUP BY 1, 2
 	)
 SELECT category_name,
-	sum(rental_count)
+	sum(rental_count) rentals
 FROM t1
 GROUP BY 1
 ORDER BY 2 DESC;

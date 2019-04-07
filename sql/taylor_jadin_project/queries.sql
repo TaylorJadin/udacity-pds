@@ -70,13 +70,9 @@ GROUP BY 1
 ORDER BY 2 DESC limit 10;
 
 /* Query 4 */
-select c.name categeory,
-	   date_trunc('month', r.rental_date) month,
-	   count(*) rental_count
-from category c
-join film_category fc on fc.category_id = c.category_id
-join film f on f.film_id = fc.film_id
-join inventory i on i.film_id on f.film_id
-join rental r on r.inventory_id = i.inventory_id
-group by 1, 2
-order by 1, 2
+SELECT c.first_name || ' ' || c.last_name AS customer,
+	count(*) rental_count
+FROM customer c
+JOIN rental r ON r.customer_id = c.customer_id
+GROUP BY 1
+ORDER BY 2 DESC limit 10;

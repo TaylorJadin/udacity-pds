@@ -19,8 +19,9 @@ GROUP BY 1
 ORDER BY 2 DESC;
 
 /* Query 2 */
-/* Note: even though this data is the same as the suggestion in question set #1 question 3,
-		 I used a count to make the data work nicer with a stacked bar chart */
+/* Note: even though this data is the same as the suggestion in
+		 question set #1 question 3, I used a counts in multiple
+		 columns to make the data work nicer with a stacked bar chart */
 WITH t1
 AS (
 	SELECT f.title film_title,
@@ -58,3 +59,14 @@ SELECT category_name,
 FROM t1
 GROUP BY 1
 ORDER BY 1
+
+/* Query 3 */
+SELECT f.title film,
+	count(*) rental_count
+FROM film f
+JOIN inventory i ON i.film_id = f.film_id
+JOIN rental r ON r.inventory_id = i.inventory_id
+GROUP BY 1
+ORDER BY 2 DESC limit 10;
+
+/* Query 4 */

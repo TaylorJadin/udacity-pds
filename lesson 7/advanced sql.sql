@@ -89,3 +89,53 @@ WITH double_accounts AS (
 SELECT count(*)
 FROM double_accounts
 WHERE name = 'Walmart'
+
+-- Performance tuning
+-- maybe limit by time to speed up your query
+SELECT *
+FROM orders
+WHERE occurred_at >= '2016-01-01'
+	AND occurred_at < '2016-07-01'
+
+-- or use an actual LIMIT 100 etc.
+SELECT *
+FROM orders limit 50
+
+-- aggregations get run, across the whole dataset, so LIMIT doesn't save much time for those
+SELECT account_id,
+	sum(poster_qty) sum_poster_qty
+FROM orders
+GROUP BY 1 limit 10
+
+-- if you want to limit the dzataset before performing an aggregation use a subquery
+SELECT account_id,
+	sum(poster_qty) sum_poster_qty
+FROM (
+	SELECT *
+	FROM orders limit 10
+	)
+GROUP BY 1
+
+-- putting limit in a subquery is often a good way to speed things up, but it will obviously change your actual results, so its a good thing to test with, but sometimes not a good thing to get actual good data with
+-- instead of performing a large join with an aggregate function:
+SELECT a.name,
+	count(*) web_events
+FROM accounts a
+JOIN web_events w ON w.account_id = a.id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+-- you can do the aggregate first then join to reduce the amount of records that need to be matched in the join:
+
+SELECT a.name,
+	sub.web_events
+FROM (
+	SELECT account_id,
+		count(*) web_events
+	FROM web_events w
+	GROUP BY 1
+	) sub
+JOIN accounts a ON a.id = sub.account_id
+ORDER BY 2 DESC;
+
+-- EXPLAIN gives you the query plan in reverse order, cost metric can give you a relative idea of resources required

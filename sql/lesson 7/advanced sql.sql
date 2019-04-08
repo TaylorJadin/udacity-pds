@@ -90,6 +90,7 @@ SELECT count(*)
 FROM double_accounts
 WHERE name = 'Walmart'
 
+<<<<<<< HEAD:lesson 7/advanced sql.sql
 -- Performance tuning
 -- maybe limit by time to speed up your query
 SELECT *
@@ -139,3 +140,25 @@ JOIN accounts a ON a.id = sub.account_id
 ORDER BY 2 DESC;
 
 -- EXPLAIN gives you the query plan in reverse order, cost metric can give you a relative idea of resources required
+=======
+-- joining subqueries
+SELECT COALESCE(orders.DATE, web_events.DATE) DATE,
+	orders.active_sales_reps,
+	orders.orders,
+	web_events.web_visits
+FROM (
+	SELECT date_trunc('day', o.occurred_at) DATE,
+		count(a.sales_rep_id) active_sales_reps,
+		count(o.id) orders
+	FROM accounts a
+	JOIN orders o ON o.account_id = a.id
+	GROUP BY 1
+	) orders
+FULL JOIN (
+	SELECT date_trunc('day', we.occurred_at) DATE,
+		count(we.id) web_visits
+	FROM web_events we
+	GROUP BY 1
+	) web_events ON web_events.DATE = orders.DATE
+ORDER BY 1 DESC
+>>>>>>> e17d2beb5bbec6fbcfb29c94b3eb248d20a0c77e:sql/lesson 7/advanced sql.sql

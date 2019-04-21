@@ -124,3 +124,10 @@ print("Does your {} {}?".format(animal, action))
 maria_string = "Maria loves {} and {}"
 print(maria_string.format("math", "statistics"))
 # Maria loves math and statistics
+
+# Write two lines of code below, each assigning a value to a variable
+dog = "Annie"
+owner = "Taylor"
+# Now write a print statement using .format() to print out a sentence and the 
+#   values of both of the variables
+print("{} is {}'s dog!".format(dog, owner))

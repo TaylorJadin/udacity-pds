@@ -149,3 +149,110 @@ names.append("Eugenia")
 print(sorted(names))
 # output: ['Albert', 'Ben', 'Carol', 'Donna', 'Eugenia']
 #############################################
+
+# tuples: data type for immutable ordered sequences of elements, often used to store related pieces of information that will almost always be used together
+# ex: latitude and longitutde
+
+location = (13.4125, 103.866667)
+print("Latitude:", location[0])
+print("Longitude:", location[1])
+
+# tuples can also assign multiple variables in a compact way
+# () optional with tuples
+# tuple unpacking =  variables can be assigned from the content of a tuple
+dimensions = 52, 40, 100
+length, width, height = dimensions
+print("The dimensions are {} x {} x {}".format(length, width, height))
+# OR, if we don't need dimensions directly:
+length, width, height = 52, 40, 100
+print("The dimensions are {} x {} x {}".format(length, width, height))
+
+# set, data type for mutable unordered collections of unique elements
+# one use is to quickly remove duplicates from a list
+numbers = [1, 2, 6, 3, 1, 1, 6]
+unique_nums = set(numbers)
+print(unique_nums)
+# output: {1, 2, 3, 6}
+# sets do support in just like lists
+# you can use the add method and pop method to add and remove elements, like with lists
+# with pop, a random elements is removed because sets are unordered, so there is no last element
+fruit = {"apple", "banana", "orange", "grapefruit"}  # define a set
+print("watermelon" in fruit)  # check for element
+fruit.add("watermelon")  # add an element
+print(fruit)
+print(fruit.pop())  # remove a random element
+print(fruit)
+
+# dictionaries, data type for mutable objects that store mappings of unique keys to values, it is technically unordered
+# stores pairs, keys and values
+# dictionary keys need to be immutable
+elements = {"hydrogen": 1, "helium": 2, "carbon": 6}
+print(elements["helium"])  # print the value mapped to "helium"
+# insert "lithium" with a value of 3 into the dictionary
+elements["lithium"] = 3
+print("carbon" in elements)
+# output: True
+# get looks up values in a dictionary, but returns None if the key isn't found instead of an errorƒ
+print(elements.get("dilithium"))
+# output: None
+# you can set a default value when a key is not found
+elements.get('kryptonite', 'There\'s no such element!')
+# output: "There's no such element!"
+#############################################
+population = {"Shanghai": 17.8, "Istanbul": 13.3,
+              "Karachi": 13.0, "Mumbai": 12.5}
+#############################################
+
+# identity operators are is or is not
+# see the difference between equality and identity operators:
+
+a = [1, 2, 3]
+b = a
+c = [1, 2, 3]
+print(a == b)
+# output: True
+print(a is b)
+# output: True
+print(a == c)
+# output: True
+print(a is c)
+# output: False
+#############################################
+animals = {'dogs': [20, 10, 15, 8, 32, 15], 'cats': [
+    3, 4, 2, 8, 2, 4], 'rabbits': [2, 3, 3], 'fish': [0.3, 0.5, 0.8, 0.3, 1]}
+#############################################
+
+# compound data structures, dictionaries in dictionaries!
+
+elements = {"hydrogen": {"number": 1,
+                         "weight": 1.00794,
+                         "symbol": "H"},
+              "helium": {"number": 2,
+                         "weight": 4.002602,
+                         "symbol": "He"}}
+helium = elements["helium"]  # get the helium dictionary
+hydrogen_weight = elements["hydrogen"]["weight"]  # get hydrogen's weight
+# you can of course add new keys to the dictionary:
+oxygen = {"number":8,"weight":15.999,"symbol":"O"}  # create a new oxygen dictionary 
+elements["oxygen"] = oxygen  # assign 'oxygen' as a key to the elements dictionary
+print('elements = ', elements)
+# output: elements =  {"hydrogen": {"number": 1,
+            #               "weight": 1.00794,
+            #               "symbol": 'H'},
+            #    "helium": {"number": 2,
+            #               "weight": 4.002602,
+            #               "symbol": "He"}, 
+            #    "oxygen": {"number": 8, 
+            #               "weight": 15.999, 
+            #               "symbol": "O"}}
+
+#############################################
+elements = {'hydrogen': {'number': 1, 'weight': 1.00794, 'symbol': 'H'},
+            'helium': {'number': 2, 'weight': 4.002602, 'symbol': 'He'}}
+
+# todo: Add an 'is_noble_gas' entry to the hydrogen and helium dictionaries
+# hint: helium is a noble gas, hydrogen isn't
+
+elements['hydrogen']['is_noble_gas'] = False
+elements['helium']['is_noble_gas'] = True
+#############################################

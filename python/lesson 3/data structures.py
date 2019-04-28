@@ -41,3 +41,13 @@ print(second_half)
 # output: False
 
 # mutability = whether or not we can change an object once it has been created
+# mutable = changeable, immutable = unchangeable
+
+# strings are immutable:
+greeting = "Hello there"
+# this won't work:
+# greeting[0] = 'M'
+
+# orer is whether the position of an element in an object can be used to access the element
+# both strings and lists are ordered
+

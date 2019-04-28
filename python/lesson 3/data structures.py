@@ -40,6 +40,14 @@ print(second_half)
 5 in [1, 2, 3, 4, 6]
 # output: False
 
+VINIX = ['C', 'MA', 'BA', 'PG', 'CSCO', 'VZ', 'PFE', 'HD', 'INTC', 'T', 'V', 'UNH', 'WFC',
+         'CVX', 'BAC', 'JNJ', 'GOOGL', 'GOOG', 'BRK.B', 'XOM', 'JPM', 'FB', 'AMZN', 'MSFT', 'AAPL']
+'GE' in VINIX
+# output: False
+
+'GOOGL' in VINIX
+# output: True
+
 # mutability = whether or not we can change an object once it has been created
 # mutable = changeable, immutable = unchangeable
 
@@ -50,4 +58,52 @@ greeting = "Hello there"
 
 # orer is whether the position of an element in an object can be used to access the element
 # both strings and lists are ordered
+
+########################################################
+month = 8
+days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+# use list indexing to determine the number of days in month
+num_days = days_in_month[month - 1]
+
+print(num_days)
+########################################################
+eclipse_dates = ['June 21, 2001', 'December 4, 2002', 'November 23, 2003',
+                 'March 29, 2006', 'August 1, 2008', 'July 22, 2009',
+                 'July 11, 2010', 'November 13, 2012', 'March 20, 2015',
+                 'March 9, 2016']
+
+
+# TODO: Modify this line so it prints the last three elements of the list
+print(eclipse_dates[-3:])
+########################################################
+sentence1 = "I wish to register a complaint."
+sentence2 = ["I", "wish", "to", "register", "a", "complaint", "."]
+sentence2[0:2] = ["We", "want"]
+print(sentence2)
+# output: ['We', 'want', 'to', 'register', 'a', 'complaint', '.']
+########################################################
+
+
+# because strings are immutable this happens:
+name = 'Jim'
+student = name
+name = 'Tim'  # overwrite name
+print(name)
+# output: Tim
+print(student)
+# output: Jim
+
+# but because lists are mutable:
+scores = ["B", "C", "A", "D", "B", "A"]
+grades = scores
+print("scores: " + str(scores))
+# output: scores: ['B', 'C', 'A', 'D', 'B', 'A']
+print("grades: " + str(grades))
+# output: scores: ['B', 'C', 'A', 'D', 'B', 'A']
+scores[3] = "B"
+print("scores: " + str(scores))
+# output: scores: ['B', 'C', 'A', 'B', 'B', 'A']
+print("grades: " + str(grades))
+# output: scores: ['B', 'C', 'A', 'B', 'B', 'A']
 

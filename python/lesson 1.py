@@ -96,16 +96,21 @@ driving_license_character_limit = 28
 print(name_length <= driving_license_character_limit)
 
 # type conversion
-# >>> print(type(4))
+print(type(4))
 # int
-# >>> print(type(3.7))
+print(type(3.7))
 # float
-# >>> print(type('this'))
+print(type('this'))
 # str
-# >>> print(type(True))
+print(type(True))
 # bool
 
 ################################
+mon_sales = "28"
+tues_sales = "26"
+wed_sales = "345"
+thurs_sales = "23"
+fri_sales = "14"
 
 weekly_sales = int(mon_sales) + int(tues_sales) + int(wed_sales) + int(thurs_sales) + int(fri_sales)
 weekly_sales = str(weekly_sales)  #convert the type back!!

@@ -96,14 +96,14 @@ driving_license_character_limit = 28
 print(name_length <= driving_license_character_limit)
 
 # type conversion
->>> print(type(4))
-int
->>> print(type(3.7))
-float
->>> print(type('this'))
-str
->>> print(type(True))
-bool
+# >>> print(type(4))
+# int
+# >>> print(type(3.7))
+# float
+# >>> print(type('this'))
+# str
+# >>> print(type(True))
+# bool
 
 ################################
 
@@ -131,3 +131,35 @@ owner = "Taylor"
 # Now write a print statement using .format() to print out a sentence and the 
 #   values of both of the variables
 print("{} is {}'s dog!".format(dog, owner))
+
+
+#####################################
+# https://docs.python.org/2/library/string.html
+
+verse = "If you can keep your head when all about you\n  Are losing theirs and blaming it on you,\nIf you can trust yourself when all men doubt you,\n  But make allowance for their doubting too;\nIf you can wait and not be tired by waiting,\n  Or being lied about, don’t deal in lies,\nOr being hated, don’t give way to hating,\n  And yet don’t look too good, nor talk too wise:"
+print(verse)
+
+# Use the appropriate functions and methods to answer the questions above
+# Bonus: practice using .format() to output your answers in descriptive messages!`
+
+print("1. length of string variable verse = {}".format(len(verse)))
+print("2. index of first occurrence of the 'and' = {}".format(verse.index("and")))
+print("3. index of the last occurrrence of 'you' = {}".format(verse.rindex("you")))
+print("4. count of 'you' = {}".format(verse.count("you")))
+
+# Output:
+# If you can keep your head when all about you
+#   Are losing theirs and blaming it on you,
+# If you can trust yourself when all men doubt you,
+#   But make allowance for their doubting too;
+# If you can wait and not be tired by waiting,
+#   Or being lied about, don’t deal in lies,
+# Or being hated, don’t give way to hating,
+#   And yet don’t look too good, nor talk too wise:
+# 1. length of string variable verse = 362
+# 2. index of first occurrence of the 'and' = 65
+# 3. index of the last occurrrence of 'you' = 186
+# 4. count of 'you' = 8
+
+#######################################
+

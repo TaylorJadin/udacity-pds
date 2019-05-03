@@ -335,3 +335,72 @@ print(fruit_count, not_fruit_count)
 # while, loop the body any number of times until the condition is met
 # for loops only loop the body once
 
+card_deck = [4, 11, 8, 5, 13, 2, 8, 10]
+hand = []
+
+# adds the last element of the card_deck list to the hand list
+# until the values in hand add up to 17 or more
+while sum(hand)  < 17:
+    hand.append(card_deck.pop())
+    print(sum(hand))
+
+#############################################
+# number to find the factorial of
+number = 6
+# start with our product equal to one
+product = 1
+# track the current number being multiplied
+current = 1
+while  current <= number:
+    # multiply the product so far by the current number
+    product *= current
+    # increment current with each iteration until it reaches number
+    current += 1
+# print the factorial of number
+print(product)
+#############################################
+# as a for loop
+# number to find the factorial of
+number = 6   
+# start with our product equal to one
+product = 1
+# write your for loop here
+for i in range(1,(number+1)):
+    product *= i
+# print the factorial of number
+print(product)
+#############################################
+start_num = 5
+end_num = 100
+count_by = 2
+
+break_num = start_num
+while break_num < end_num:
+    break_num += count_by
+
+print(break_num)
+#############################################
+start_num = 100#provide some start number
+end_num = 85#provide some end number that you stop when you hit
+count_by = 4#provide some number to count by 
+
+# write a condition to check that end_num is larger than start_num before looping
+# write a while loop that uses break_num as the ongoing number to 
+#   check against end_num
+if end_num < start_num:
+    result = "Oops! Looks like your start value is greater than the end value. Please try again."
+else:
+    break_num = start_num
+    while break_num < end_num:
+        break_num += count_by
+
+print(result)
+#############################################
+# nearest square
+limit = 40
+num = 0
+while (num+1)**2 < limit:
+    num += 1
+nearest_square = num**2
+print(nearest_square)
+#############################################

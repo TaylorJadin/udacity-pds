@@ -109,22 +109,54 @@ print(result)
 # the corresponding state to assure that they are taxed by the right
 # amount.
 # '''
-state = #Either CA, MN, or NY
-purchase_amount = #amount of purchase
+state = 'MN' #Either CA, MN, or NY
+purchase_amount = 15.75#amount of purchase
 
-if #provide conditional for checking state is CA
+if state == 'CA':
     tax_amount = .075
     total_cost = purchase_amount*(1+tax_amount)
     result = "Since you're from {}, your total cost is {}.".format(state, total_cost)
 
-elif #provide conditional for checking state is MN
+elif state == 'MN':
     tax_amount = .095
     total_cost = purchase_amount*(1+tax_amount)
     result = "Since you're from {}, your total cost is {}.".format(state, total_cost)
 
-elif #provide conditional for checking state is NY
+elif state == 'NY':
     tax_amount = .089
     total_cost = purchase_amount*(1+tax_amount)
     result = "Since you're from {}, your total cost is {}.".format(state, total_cost)
 
 print(result)
+#############################################
+
+# complex boolean expressions
+weight = 160
+height = 180
+is_raining = True
+is_sunny = True
+location = 'USA'
+unsubscribed = True
+
+if 18.5 <= weight / height**2 < 25:
+    print("BMI is considered 'normal'")
+
+if is_raining and is_sunny:
+    print("Is there a rainbow?")
+
+if (not unsubscribed) and (location == "USA" or location == "CAN"):
+    print("send email")
+
+#conditions in if statements must be boolean expressions that evaulte to Ture or False, if true the indented block gets run
+
+# truth value testing
+# most of the built-in objects that are considered False in Python:
+# constants defined to be false: None and False
+# zero of any numeric type: 0, 0.0, 0j, Decimal(0), Fraction(0, 1)
+# empty sequences and collections: '"", (), [], {}, set(), range(0)
+
+errors = 3
+if errors:
+    print("You have {} errors to fix!".format(errors))
+else:
+    print("No errors to fix!")

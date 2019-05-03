@@ -331,3 +331,7 @@ for fruit, count in basket_items.items():
 
 print(fruit_count, not_fruit_count)
 #############################################
+
+# while, loop the body any number of times until the condition is met
+# for loops only loop the body once
+

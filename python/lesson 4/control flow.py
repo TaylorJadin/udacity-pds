@@ -160,3 +160,174 @@ if errors:
     print("You have {} errors to fix!".format(errors))
 else:
     print("No errors to fix!")
+
+#############################################
+points = 174
+
+points = 174  # use this input when submitting your answer
+
+# set prize to default value of None
+prize = None
+
+# use the value of points to assign prize to the correct prize name
+if points <= 50:
+    prize = "wooden rabbit"
+elif 151 <= points <= 180:
+    prize = "wafer-thin mint"
+elif points >= 181:
+    prize = "penguin"
+
+# use the truth value of prize to assign result to the correct message
+if prize:
+    result = "Congratulations! You won a {}!".format(prize)
+else:
+    result = "Oh dear, no prize this time."
+
+print(result)
+#############################################
+
+# for loop
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+for city in cities:
+    print(city.title()) # print in title case
+print("Done!")
+# city is the iteration variable and gets the value of each elemnt in the iterable (cities)
+
+
+# range()
+for i in range(3):
+    print("Hello!")
+
+# If you specify one integer inside the parentheses withrange(), it's used as the value for 'stop,' and the defaults are used for the other two.
+# e.g. - range(4) returns 0, 1, 2, 3
+# If you specify two integers inside the parentheses withrange(), they're used for 'start' and 'stop,' and the default is used for 'step.'
+# e.g. - range(2, 6) returns 2, 3, 4, 5
+# Or you can specify all three integers for 'start', 'stop', and 'step.'
+# e.g. - range(1, 10, 2) returns 1, 3, 5, 7, 9
+
+# Creating a new list
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+capitalized_cities = []
+
+for city in cities:
+    capitalized_cities.append(city.title())
+
+# modifying lists
+cities = ['new york city', 'mountain view', 'chicago', 'los angeles']
+for index in range(len(cities)):
+    cities[index] = cities[index].title()
+    print(cities[index])
+print("done:")
+print(cities)
+
+#############################################
+sentence = ["the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"]
+
+for word in sentence:
+    print(word)
+#############################################
+for i in range(5, 35, 5):
+    print(i)
+#############################################
+names = ["Joey Tribbiani", "Monica Geller", "Chandler Bing", "Phoebe Buffay"]
+usernames = []
+
+for name in names:
+    usernames.append(name.lower().replace(" ", "_"))
+
+print(usernames)
+#############################################
+names = ["Joey Tribbiani", "Monica Geller", "Chandler Bing", "Phoebe Buffay"]
+usernames = []
+
+# write your for loop here
+usernames = ["Joey Tribbiani", "Monica Geller", "Chandler Bing", "Phoebe Buffay"]
+
+for i in range(len(usernames)):
+    usernames[i] = usernames[i].lower().replace(" ", "_")
+
+print(usernames)
+#############################################
+tokens = ['<greeting>', 'Hello World!', '</greeting>']
+
+count = 0
+for token in tokens:
+    if token[0] == '<' and token[-1] == '>':
+        count += 1
+
+print(count)
+#############################################
+#create an html list
+items = ['first string', 'second string']
+html_str = "<ul>\n"          # The "\n" here is the end-of-line char, causing
+                             # chars after this in html_str to be on next line
+
+for item in items:
+    html_str += "<li>{}</li>\n".format(item)
+html_str += "</ul>"
+
+print(html_str)
+#############################################
+# word counter dictionaries
+book_title =  ['great', 'expectations','the', 'adventures', 'of', 'sherlock','holmes','the','great','gasby','hamlet','adventures','of','huckleberry','fin']
+word_counter = {}
+# one way:
+for word in book_title:
+    if word not in word_counter:
+        word_counter[word] = 1
+    else:
+        word_counter[word] += 1
+# using get method:
+for word in book_title:
+    word_counter[word] = word_counter.get(word, 0) + 1
+
+# iterating through dictionaries using items method
+cast = {
+           "Jerry Seinfeld": "Jerry Seinfeld",
+           "Julia Louis-Dreyfus": "Elaine Benes",
+           "Jason Alexander": "George Costanza",
+           "Michael Richards": "Cosmo Kramer"
+       }
+
+print("Iterating through keys:")
+for key in cast:
+    print(key)
+
+print("\nIterating through keys and values:")
+for key, value in cast.items():
+    print("Actor: {}    Role: {}".format(key, value))
+
+#############################################
+# You would like to count the number of fruits in your basket. 
+# In order to do this, you have the following dictionary and list of
+# fruits.  Use the dictionary and list to count the total number
+# of fruits, but you do not want to count the other items in your basket.
+
+result = 0
+basket_items = {'apples': 4, 'oranges': 19, 'kites': 3, 'sandwiches': 8}
+fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
+
+#Iterate through the dictionary
+for fruit, count in basket_items.items():
+    if fruit in fruits:
+        result += count
+#if the key is in the list of fruits, add the value (number of fruits) to result
+
+print(result)
+#############################################
+# lets also count not fruit
+fruit_count, not_fruit_count = 0, 0
+basket_items = {'apples': 4, 'oranges': 19, 'kites': 3, 'sandwiches': 8}
+fruits = ['apples', 'oranges', 'pears', 'peaches', 'grapes', 'bananas']
+
+#Iterate through the dictionary
+for fruit, count in basket_items.items():
+#if the key is in the list of fruits, add to fruit_count.
+    if fruit in fruits:
+        fruit_count += count
+#if the key is not in the list, then add to the not_fruit_count
+    else:
+        not_fruit_count += count
+
+print(fruit_count, not_fruit_count)
+#############################################

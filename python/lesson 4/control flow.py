@@ -543,3 +543,38 @@ for label, x, y, z in zip(labels, x_coord, y_coord, z_coord):
 
 for point in points:
     print(point)
+#############################################
+cast_names = ["Barney", "Robin", "Ted", "Lily", "Marshall"]
+cast_heights = [72, 68, 72, 66, 76]
+
+cast = dict(zip(cast_names, cast_heights))
+print(cast)
+#############################################
+cast = (("Barney", 72), ("Robin", 68), ("Ted", 72), ("Lily", 66), ("Marshall", 76))
+
+names, heights=zip(*cast)
+
+print(names)
+print(heights)
+#############################################
+# transpose 4x3 matrix to 3x4
+data = ((0, 1, 2), (3, 4, 5), (6, 7, 8), (9, 10, 11))
+data_transpose = tuple(zip(*data))
+print(data_transpose)
+#############################################
+cast = ["Barney Stinson", "Robin Scherbatsky", "Ted Mosby", "Lily Aldrin", "Marshall Eriksen"]
+heights = [72, 68, 72, 66, 76]
+
+for i, character in enumerate(cast):
+    cast[i] = character + " " + str(heights[i])
+
+print(cast)
+#############################################
+# list comprehensions, make a list with a for loop in one line
+
+# take this:
+capitalized_cities = []
+for city in cities:
+    capitalized_cities.append(city.title())
+# and make it this:
+capitalized_cities = [city.title() for city in cities]

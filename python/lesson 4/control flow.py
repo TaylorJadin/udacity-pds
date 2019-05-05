@@ -511,3 +511,35 @@ for num in check_prime:
         if i == num -1:    
             print("{} IS a prime number".format(num))
 #############################################
+
+# zip returns an iterator that combines multiple iterables into one sequence of tuples
+letters = ['a', 'b', 'c']
+nums = [1, 2, 3]
+
+for letter, num in zip(letters, nums):
+    print("{}: {}".format(letter, num))
+
+# you can also unzip:
+some_list = [('a', 1), ('b', 2), ('c', 3)]
+letters, nums = zip(*some_list)
+# this would create the letters and nums tuples above
+
+# enumerate returns an iterator of tuples containing indices and values of a list
+
+letters = ['a', 'b', 'c', 'd', 'e']
+for i, letter in enumerate(letters):
+    print(i, letter)
+
+#############################################
+x_coord = [23, 53, 2, -12, 95, 103, 14, -5]
+y_coord = [677, 233, 405, 433, 905, 376, 432, 445]
+z_coord = [4, 16, -6, -42, 3, -6, 23, -1]
+labels = ["F", "J", "A", "Q", "Y", "B", "W", "X"]
+
+points = []
+# write your for loop here
+for label, x, y, z in zip(labels, x_coord, y_coord, z_coord):
+    points.append("{}: {}, {}, {}".format(label, x, y, z))
+
+for point in points:
+    print(point)

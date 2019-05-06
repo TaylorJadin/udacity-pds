@@ -8,17 +8,17 @@ def cylinder_volume(height, radius):
 cylinder_volume(10, 3)
 
 # default arguments
-def cylinder_volume(height, radius=5):
+def cylinder_volume2(height, radius=5):
     pi = 3.14159
     return height * pi * radius ** 2
 
-cylinder_volume(10) # will be the same as
-cylinder_volume(10, 5) 
+cylinder_volume2(10) # will be the same as
+cylinder_volume2(10, 5) 
 
-cylinder_volume(10, 7) # override default argument
+cylinder_volume2(10, 7) # override default argument
 
-cylinder_volume(10, 7) # pass in arguments by position
-cylinder_volume(height=10, radius=7) # pass in arguments by name
+cylinder_volume2(10, 7) # pass in arguments by position
+cylinder_volume2(height=10, radius=7) # pass in arguments by name
 
 #############################################
 # write your function here
@@ -40,3 +40,6 @@ def readable_timedelta(days):
     return "{} weeks(s) and {} day(s).".format(weeks, remainder)
 
 print(readable_timedelta(10))
+#############################################
+
+# if a variable is created inside a function

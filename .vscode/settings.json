@@ -1,4 +1,6 @@
 {
     "files.autoSave": "afterDelay",
     "editor.wordWrap": "off",
+    "python.pythonPath": "C:\\Users\\jadin\\Anaconda3\\python.exe",
+    "python.linting.enabled": true,
 }

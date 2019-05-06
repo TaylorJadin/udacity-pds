@@ -42,4 +42,16 @@ def readable_timedelta(days):
 print(readable_timedelta(10))
 #############################################
 
-# if a variable is created inside a function
+# if a variable is created inside a function, its only accessible inside that function
+# if a variable is created outside a function it has a global scope
+# a global variable can not be modified inside a function unless it is passed as an argument:
+egg_count = 0
+def buy_eggs():
+    egg_count += 12 # purchase a dozen eggs
+buy_eggs()
+
+# a better thing to do is this:
+egg_count = 0
+def buy_eggs2(count):
+    return count + 12  # purchase a dozen eggs
+egg_count = buy_eggs2(egg_count)

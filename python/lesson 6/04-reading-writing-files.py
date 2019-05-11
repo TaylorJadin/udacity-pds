@@ -54,5 +54,3 @@ with open("camelot.txt") as f:
 
 print(camelot_lines)
 # output: ["We're the knights of the round table", "We dance whenever we're able"]
-
-

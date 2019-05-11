@@ -1,6 +1,6 @@
 {
     "files.autoSave": "afterDelay",
-    "editor.wordWrap": "off",
+    "editor.wordWrap": "on",
     "python.pythonPath": "/usr/bin/python3",
     "python.linting.enabled": true,
 }

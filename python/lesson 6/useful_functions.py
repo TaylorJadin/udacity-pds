@@ -18,5 +18,6 @@ def main():
 
     print("All tests passed!")
 
+# if name == main stuff will only run when calling this script directing, but not if you import useful_functions
 if __name__ == '__main__':
     main()

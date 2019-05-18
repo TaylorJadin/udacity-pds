@@ -1,4 +1,5 @@
 import time
+import datetime
 import calendar
 import pandas as pd
 import numpy as np
@@ -157,9 +158,14 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # display total travel time
-
+    total_time = df['Trip Duration'].sum()
+    nice_total_time = str(datetime.timedelta(seconds=int(total_time)))
+    print('Total travel time:', nice_total_time)
 
     # display mean travel time
+    mean_time = df['Trip Duration'].mean()
+    nice_mean_time = str(datetime.timedelta(seconds=int(mean_time)))
+    print('Mean travel time:', nice_mean_time)
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))

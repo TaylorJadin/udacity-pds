@@ -1,4 +1,5 @@
 import time
+import calendar
 import pandas as pd
 import numpy as np
 
@@ -77,6 +78,7 @@ def load_data(city, month, day):
     # extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['month_name'] = df['month'].apply(lambda x: calendar.month_name[x])
 
     # filter by month if applicable
     if month != 'all':
@@ -100,10 +102,14 @@ def time_stats(df):
     start_time = time.time()
 
     # display the most common month
-
+    if month == 'all':
+        common_month = df['month_name'].mode()[0]
+        print('Most common month:', common_month)
 
     # display the most common day of week
-
+    if day == 'all':
+        common_day = df['day_of_week'].mode()[0]
+        print('Most common day:', common_day)
 
     # display the most common start hour
 

@@ -17,7 +17,14 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-
+    city = ''
+    while city not in CITY_DATA.keys():
+        try:
+            city = input('Would you like to see data from Chicago, New York City, or Washington? \n').lower().strip()
+            if city not in CITY_DATA.keys():
+                print('Please choose from Chicago, New York City, or Washington.')
+        except Exception as e:
+            print("Exception occurred: {}".format(e))
 
     # get user input for month (all, january, february, ... , june)
 
@@ -27,7 +34,6 @@ def get_filters():
 
     print('-'*40)
     return city, month, day
-
 
 def load_data(city, month, day):
     """
@@ -40,10 +46,9 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-
-
+    filename = CITY_DATA.get(city)
+    df = pd.read_csv(filename)
     return df
-
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -59,6 +64,16 @@ def time_stats(df):
 
     # display the most common start hour
 
+    # convert the Start Time column to datetime
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+
+    # extract hour from the Start Time column to create an hour column
+    df['hour'] = df['Start Time'].dt.hour
+
+    # find the most popular hour
+    popular_hour = df['hour'].mode()[0]
+
+    print('Most Popular Start Hour:', popular_hour)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)

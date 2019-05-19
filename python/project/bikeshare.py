@@ -57,7 +57,7 @@ def get_filters():
             print("\nException occurred: {}".format(e))
 
 
-    print('-'*40)
+    print('\n', '-'*40)
     return city, month, day
 
 def load_data(city, month, day):
@@ -127,7 +127,7 @@ def time_stats(df, month, day):
     print('\nMost Popular Start Hour:\n    ', popular_hour)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('\n', '-'*40)
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
@@ -149,7 +149,7 @@ def station_stats(df):
     print(common_station_combo)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('\n', '-'*40)
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
@@ -169,7 +169,7 @@ def trip_duration_stats(df):
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('\n', '-'*40)
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
@@ -198,7 +198,7 @@ def user_stats(df):
         print('\nMost common birth year:\n    ', int(common_birth_year))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('\n', '-'*40)
 
 def main():
     while True:

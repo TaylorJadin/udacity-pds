@@ -78,9 +78,8 @@ def load_data(city, month, day):
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
     # extract month and day of week from Start Time to create new columns
-    df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
-    df['month_name'] = df['month'].apply(lambda x: calendar.month_name[x])
+    df['month_name'] = df['Start Time'].dt.month.apply(lambda x: calendar.month_name[x])
 
     # filter by month if applicable
     if month != 'all':
@@ -200,6 +199,25 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('\n', '-'*40)
 
+def print_loop(df):
+    """Prints through the raw data, 5 rows at a time"""
+    print_rows = input('\nWould you like to print the first 5 rows of data? Enter yes or no.\n')
+    if print_rows.lower().strip() == 'yes':
+        start_row = 0
+        last_row = 5
+        num_of_rows = df.shape[0]
+        while last_row < num_of_rows:
+            print('-'*40)
+            print(df[start_row:last_row])
+            print('-'*40)
+            start_row += 5
+            last_row += 5
+            
+            print_more = input('\nWould you like to continue with the next 5 rows? Enter yes or no.\n')
+            if print_more.lower().strip() != 'yes':
+                break
+
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -209,6 +227,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
+        print_loop(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
